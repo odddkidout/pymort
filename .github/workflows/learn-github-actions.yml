@@ -6,26 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up the cache
-      uses: actions/cache@v1
-      with:
-        path: .poetry_cache
-        key: tests-poetry-cache-ubuntu-latest-py3.10
     - uses: actions/checkout@v1
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-    - name: Run image
-      uses: abatilo/actions-poetry@v2.0.0
-      with:
-        poetry-version: '1.1.0'
-    - name: Install dependencies
-      run: poetry install
+    - uses: actions/setup-python@v1
+    - uses: knowsuchagency/poetry-install@v1
+      env:
+        POETRY_VIRTUALENVS_CREATE: false
     - name: Generate coverage report
       run: |
         pip install pytest
         pip install pytest-cov
-        pytest --cov=./ --cov-report=xml
+        poetry pytest --cov=./ --cov-report=xml
     - name: Upload coverage reports to Codecov with GitHub Action
       uses: codecov/codecov-action@v3
     - name: Publish distribution 📦 to Test PyPI
