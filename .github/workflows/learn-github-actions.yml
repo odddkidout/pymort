@@ -14,9 +14,9 @@ jobs:
       run: pip install -r requirements.txt
     - name: Generate coverage report
     - name: Run image
-        uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: '1.1.2'
+      uses: abatilo/actions-poetry@v2.0.0
+      with:
+        poetry-version: '1.1.2'
     - name: Install dependencies
       run: poetry install
     - name: Run tests
